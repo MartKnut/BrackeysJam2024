@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://chtr0t8fx84tj"]
+
+[ext_resource type="Texture2D" uid="uid://c44u18xrjj1ui" path="res://Sprites/icon.svg/icon.svg" id="1_lk7we"]
+[ext_resource type="Script" path="res://Scripts/player_scene.gd" id="1_q4xda"]
+[ext_resource type="PackedScene" uid="uid://b3ud1loudlvxb" path="res://Scenes/Components/Health_Component.tscn" id="3_vqvql"]
+[ext_resource type="Script" path="res://Scripts/ComponentScripts/Health_Component.gd" id="4_r1irm"]
+[ext_resource type="PackedScene" uid="uid://7u6jmjx0ng1h" path="res://Scenes/Components/Hitbox_Component.tscn" id="4_y84qr"]
+[ext_resource type="PackedScene" uid="uid://bt5u2jlmj54wr" path="res://Scenes/Components/Attack_Component.tscn" id="5_qd85p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44t6a"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c8o5"]
+
+[node name="PlayerScene" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_q4xda")
+
+[node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_44t6a")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("1_lk7we")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_vqvql")]
+script = ExtResource("4_r1irm")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_y84qr")]
+
+[node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_1c8o5")
+
+[node name="WeaponComponent" type="Node2D" parent="."]
+
+[node name="AttackComponent" parent="WeaponComponent" instance=ExtResource("5_qd85p")]

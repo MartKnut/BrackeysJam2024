@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpj8avk5n4w30"]
+
+[ext_resource type="PackedScene" uid="uid://bt5u2jlmj54wr" path="res://Scenes/Components/Attack_Component.tscn" id="1_xp2s3"]
+
+[node name="WeaponComponent" type="Node2D"]
+
+[node name="AttackComponent" parent="." instance=ExtResource("1_xp2s3")]

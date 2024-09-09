@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bt5u2jlmj54wr"]
+
+[node name="AttackComponent" type="Node2D"]
