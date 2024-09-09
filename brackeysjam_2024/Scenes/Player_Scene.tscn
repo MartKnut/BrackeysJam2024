@@ -1,35 +1,139 @@
-[gd_scene load_steps=9 format=3 uid="uid://chtr0t8fx84tj"]
+[gd_scene load_steps=11 format=3 uid="uid://chtr0t8fx84tj"]
 
 [ext_resource type="Texture2D" uid="uid://c44u18xrjj1ui" path="res://Sprites/icon.svg/icon.svg" id="1_lk7we"]
-[ext_resource type="Script" path="res://Scripts/player_scene.gd" id="1_q4xda"]
+[ext_resource type="Script" path="res://Scripts/Player_Script.gd" id="1_q4xda"]
 [ext_resource type="PackedScene" uid="uid://b3ud1loudlvxb" path="res://Scenes/Components/Health_Component.tscn" id="3_vqvql"]
-[ext_resource type="Script" path="res://Scripts/ComponentScripts/Health_Component.gd" id="4_r1irm"]
 [ext_resource type="PackedScene" uid="uid://7u6jmjx0ng1h" path="res://Scenes/Components/Hitbox_Component.tscn" id="4_y84qr"]
-[ext_resource type="PackedScene" uid="uid://bt5u2jlmj54wr" path="res://Scenes/Components/Attack_Component.tscn" id="5_qd85p"]
+[ext_resource type="PackedScene" uid="uid://cpj8avk5n4w30" path="res://Scenes/Components/Weapon_Component.tscn" id="6_7vb1g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44t6a"]
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1c8o5"]
 
-[node name="PlayerScene" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_xy1s3"]
+resource_name = "Swing"
+length = 0.35
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.523599, 1.309, 0.523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(38, 18), Vector2(38, 18)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackRotation/WeaponComponent:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(121, 65), Vector2(121, -58)]
+}
+
+[sub_resource type="Animation" id="Animation_o2fm5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.523599]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(38, 18)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d5033"]
+_data = {
+"RESET": SubResource("Animation_o2fm5"),
+"Swing": SubResource("Animation_xy1s3")
+}
+
+[node name="PlayerScene" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "weapon_cooldown", "attack_timer")]
 motion_mode = 1
 script = ExtResource("1_q4xda")
+weapon = NodePath("AttackRotation/WeaponComponent")
+weapon_cooldown = NodePath("WeaponCooldown")
+attack_timer = NodePath("AttackTimer")
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_44t6a")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_lk7we")
-
 [node name="HealthComponent" parent="." instance=ExtResource("3_vqvql")]
-script = ExtResource("4_r1irm")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("4_y84qr")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_y84qr")]
+health_component = NodePath("../HealthComponent")
 
 [node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_1c8o5")
 
-[node name="WeaponComponent" type="Node2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("1_lk7we")
 
-[node name="AttackComponent" parent="WeaponComponent" instance=ExtResource("5_qd85p")]
+[node name="WeaponCooldown" type="Timer" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(38, 18)
+rotation = 0.523599
+scale = Vector2(0.320313, 0.617188)
+texture = ExtResource("1_lk7we")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d5033")
+}
+speed_scale = 1.05
+
+[node name="AttackRotation" type="Node2D" parent="."]
+
+[node name="WeaponComponent" parent="AttackRotation" instance=ExtResource("6_7vb1g")]
+position = Vector2(121, -58)
+scale = Vector2(2.23, 2.23)
+attack_time = 0.2
+weapon_cooldown = 0.6
+
+[node name="Icon2" type="Sprite2D" parent="AttackRotation/WeaponComponent"]
+position = Vector2(-1.43051e-06, -0.308404)
+scale = Vector2(0.139331, 0.154202)
+texture = ExtResource("1_lk7we")
+
+[connection signal="timeout" from="WeaponCooldown" to="." method="_on_weapon_cooldown_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

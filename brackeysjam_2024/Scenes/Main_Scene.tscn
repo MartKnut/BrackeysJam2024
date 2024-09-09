@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://3dak8sh0v8df"]
+[gd_scene load_steps=3 format=3 uid="uid://3dak8sh0v8df"]
 
 [ext_resource type="PackedScene" uid="uid://chtr0t8fx84tj" path="res://Scenes/Player_Scene.tscn" id="1_s314x"]
+[ext_resource type="PackedScene" uid="uid://c6xljblxn782l" path="res://Scenes/Enemy_Scene.tscn" id="2_yd3cl"]
 
 [node name="MainScene" type="Node2D"]
 
-[node name="PlayerScene" parent="." instance=ExtResource("1_s314x")]
-position = Vector2(598, 313)
-
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="EnemyScene" parent="." instance=ExtResource("2_yd3cl")]
+position = Vector2(877, 341)
+
+[node name="PlayerScene" parent="." instance=ExtResource("1_s314x")]
+position = Vector2(593, 346)

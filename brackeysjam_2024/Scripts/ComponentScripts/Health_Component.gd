@@ -10,9 +10,10 @@ func _ready() -> void:
 	currentHealth = MAX_HEALTH
 
 
-func ModifyHealth(AddHealth : float):
+func Damage(attack : AttackComponent):
 	## Add health when called, call with negative value to decrese health. 
-	currentHealth += AddHealth
+	currentHealth -= attack.attack_damage
+	print(attack.attack_damage)
 	
 	## Once current health reaches 0, call the death function on parent object.
 	if currentHealth <= 0:

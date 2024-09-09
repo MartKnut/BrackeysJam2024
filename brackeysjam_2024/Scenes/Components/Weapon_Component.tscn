@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpj8avk5n4w30"]
+[gd_scene load_steps=3 format=3 uid="uid://cpj8avk5n4w30"]
 
-[ext_resource type="PackedScene" uid="uid://bt5u2jlmj54wr" path="res://Scenes/Components/Attack_Component.tscn" id="1_xp2s3"]
+[ext_resource type="Script" path="res://Scripts/ComponentScripts/Weapon_Component.gd" id="1_de81m"]
 
-[node name="WeaponComponent" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnniv"]
 
-[node name="AttackComponent" parent="." instance=ExtResource("1_xp2s3")]
+[node name="WeaponComponent" type="Area2D"]
+script = ExtResource("1_de81m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xnniv")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
