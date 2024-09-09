@@ -4,7 +4,8 @@ class_name HealthComponent
 @export var MAX_HEALTH := 100.0
 var currentHealth : float
 
-# Called when the node enters the scene tree for the first time.
+## Called when the node enters the scene tree for the first time.
+## Set current health to max health
 func _ready() -> void:
 	currentHealth = MAX_HEALTH
 
