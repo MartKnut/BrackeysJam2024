@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8t03bw7mpaja"]
+
+[ext_resource type="Texture2D" uid="uid://5564kqevhl2o" path="res://Sprites/Shadowmoose2-Sheet.png" id="1_31g8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4ygk"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(0, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3emv"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(90, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gpbu"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(180, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3yqr"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(270, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74gcl"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(360, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl4l6"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(450, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx68d"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(540, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa0v4"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(630, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af4t1"]
+atlas = ExtResource("1_31g8g")
+region = Rect2(720, 0, 90, 90)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s5qio"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4ygk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3emv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3yqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74gcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl4l6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx68d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa0v4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af4t1")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bu0fq"]
+radius = 32.0
+height = 66.0
+
+[node name="Moose" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s5qio")
+animation = &"walk"
+frame_progress = 0.311567
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_bu0fq")
