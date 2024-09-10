@@ -23,6 +23,7 @@ scale = Vector2(0.905, 0.905)
 shape = SubResource("RectangleShape2D_ytlji")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_c4bcq")]
+MAX_HEALTH = 20.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = SubResource("CompressedTexture2D_kay57")
