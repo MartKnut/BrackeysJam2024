@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	
-	var attack := Input.is_action_just_pressed("attack")
+	var attack := Input.is_action_pressed("attack")
 	
 	## If attack action is pressed and you can attack
 	if attack and canAttack and input: 

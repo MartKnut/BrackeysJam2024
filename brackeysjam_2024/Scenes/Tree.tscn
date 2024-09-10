@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://c843i1i1rupyt"]
+
+[ext_resource type="Script" path="res://Scripts/Tree_Script.gd" id="1_35ix5"]
+[ext_resource type="Texture2D" uid="uid://c44u18xrjj1ui" path="res://Sprites/icon.svg/icon.svg" id="1_bvjdv"]
+[ext_resource type="PackedScene" uid="uid://b3ud1loudlvxb" path="res://Scenes/Components/Health_Component.tscn" id="2_omnpd"]
+[ext_resource type="PackedScene" uid="uid://7u6jmjx0ng1h" path="res://Scenes/Components/Hitbox_Component.tscn" id="3_4cemi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hyb"]
+size = Vector2(58, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3ka3"]
+size = Vector2(72, 89)
+
+[node name="Tree" type="StaticBody2D"]
+script = ExtResource("1_35ix5")
+
+[node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20.5)
+shape = SubResource("RectangleShape2D_y4hyb")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -137)
+scale = Vector2(0.45, 2.325)
+texture = ExtResource("1_bvjdv")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(0, -254)
+texture = ExtResource("1_bvjdv")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_omnpd")]
+position = Vector2(-2, -2)
+MAX_HEALTH = 40.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_4cemi")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -24.5)
+shape = SubResource("RectangleShape2D_w3ka3")
