@@ -1,13 +1,19 @@
 extends CharacterBody2D
-
+class_name Player
 
 const SPEED = 20000.0
 var canAttack := true
 var attackRotator
+var kbdirection := Vector2.ZERO
+var kbforce : float
+var knockedBack := false
+
+var input := true
 
 @export var weapon : WeaponComponent
 @export var weapon_cooldown : Timer
 @export var attack_timer : Timer
+@export var stun_timer : Timer
 
 func _ready() -> void:
 	attackRotator = $AttackRotation
@@ -29,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	## Combine input to Vector2 Direction, and normalize so direction total is always equal to 1
 	var direction = Vector2(right, down).normalized()
-	if direction:
+	if direction and input:
 		velocity = (direction * SPEED) * delta
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -38,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	var attack := Input.is_action_just_pressed("attack")
 	
 	## If attack action is pressed and you can attack
-	if attack and canAttack: 
+	if attack and canAttack and input: 
 		## Keep the Attack Rotation from infinitely scaling rotation value
 		if attackRotator.rotation_degrees >= 365 or attackRotator.rotation_degrees <= -365:
 			attackRotator.rotation_degrees = 0
@@ -55,6 +61,22 @@ func _physics_process(delta: float) -> void:
 		$AnimationPlayer.play("Swing")
 	
 	move_and_slide()
+	
+	velocity = kbdirection * kbforce
+	
+	if knockedBack == true:
+		kbdirection = lerp(kbdirection, Vector2.ZERO, 0.1)
+		move_and_collide(velocity)
+		input = false
+	
+
+
+func KnockBack(force : float, direction : Vector2, stun_time : float):
+	knockedBack = true
+	kbforce = force
+	kbdirection = global_position - direction
+	stun_timer.wait_time = stun_time
+	stun_timer.start()
 
 func _attack():
 	## Stop other attacks from initiating
@@ -82,3 +104,8 @@ func _on_attack_timer_timeout() -> void:
 	## Disables visibility and collision checks
 	weapon.visible = false
 	weapon.monitoring = false
+
+
+func _on_stun_timer_timeout() -> void:
+	input = true
+	knockedBack = false

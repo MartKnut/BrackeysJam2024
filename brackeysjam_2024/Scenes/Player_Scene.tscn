@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://chtr0t8fx84tj"]
+[gd_scene load_steps=12 format=3 uid="uid://chtr0t8fx84tj"]
 
 [ext_resource type="Texture2D" uid="uid://c44u18xrjj1ui" path="res://Sprites/icon.svg/icon.svg" id="1_lk7we"]
 [ext_resource type="Script" path="res://Scripts/Player_Script.gd" id="1_q4xda"]
 [ext_resource type="PackedScene" uid="uid://b3ud1loudlvxb" path="res://Scenes/Components/Health_Component.tscn" id="3_vqvql"]
 [ext_resource type="PackedScene" uid="uid://7u6jmjx0ng1h" path="res://Scenes/Components/Hitbox_Component.tscn" id="4_y84qr"]
+[ext_resource type="PackedScene" uid="uid://bpj33e1bvx32c" path="res://Scenes/Components/Knockback_Component.tscn" id="6_6qj8o"]
 [ext_resource type="PackedScene" uid="uid://cpj8avk5n4w30" path="res://Scenes/Components/Weapon_Component.tscn" id="6_7vb1g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44t6a"]
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1c8o5"]
+size = Vector2(130, 128)
 
 [sub_resource type="Animation" id="Animation_xy1s3"]
 resource_name = "Swing"
@@ -85,12 +87,13 @@ _data = {
 "Swing": SubResource("Animation_xy1s3")
 }
 
-[node name="PlayerScene" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "weapon_cooldown", "attack_timer")]
+[node name="PlayerScene" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "weapon_cooldown", "attack_timer", "stun_timer")]
 motion_mode = 1
 script = ExtResource("1_q4xda")
 weapon = NodePath("AttackRotation/WeaponComponent")
 weapon_cooldown = NodePath("WeaponCooldown")
 attack_timer = NodePath("AttackTimer")
+stun_timer = NodePath("StunTimer")
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_44t6a")
@@ -110,6 +113,8 @@ texture = ExtResource("1_lk7we")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
+[node name="StunTimer" type="Timer" parent="."]
+
 [node name="Icon2" type="Sprite2D" parent="."]
 position = Vector2(38, 18)
 rotation = 0.523599
@@ -127,6 +132,7 @@ speed_scale = 1.05
 [node name="WeaponComponent" parent="AttackRotation" instance=ExtResource("6_7vb1g")]
 position = Vector2(121, -58)
 scale = Vector2(2.23, 2.23)
+knockback_force = 10.0
 attack_time = 0.2
 weapon_cooldown = 0.6
 
@@ -135,5 +141,8 @@ position = Vector2(-1.43051e-06, -0.308404)
 scale = Vector2(0.139331, 0.154202)
 texture = ExtResource("1_lk7we")
 
+[node name="KnockbackComponent" parent="." instance=ExtResource("6_6qj8o")]
+
 [connection signal="timeout" from="WeaponCooldown" to="." method="_on_weapon_cooldown_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

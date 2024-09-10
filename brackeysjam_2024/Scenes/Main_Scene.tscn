@@ -8,7 +8,7 @@
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 
 [node name="EnemyScene" parent="." instance=ExtResource("2_yd3cl")]
-position = Vector2(877, 341)
+position = Vector2(927, 343)
 
 [node name="PlayerScene" parent="." instance=ExtResource("1_s314x")]
 position = Vector2(593, 346)

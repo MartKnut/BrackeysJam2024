@@ -12,16 +12,17 @@ size = Vector2(118, 116)
 load_path = "res://.godot/imported/icon.svg-37dc7dc80046706a54bfbb7c5cc981d7.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5t3o"]
-size = Vector2(118, 120)
+size = Vector2(120, 124)
 
-[node name="EnemyScene" type="CharacterBody2D"]
+[node name="EnemyScene" type="CharacterBody2D" node_paths=PackedStringArray("stunTimer")]
 script = ExtResource("1_rwe2s")
+stunTimer = NodePath("StunTimer")
 
 [node name="EnvironmentCollision" type="CollisionShape2D" parent="."]
+scale = Vector2(0.905, 0.905)
 shape = SubResource("RectangleShape2D_ytlji")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_c4bcq")]
-MAX_HEALTH = 10.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = SubResource("CompressedTexture2D_kay57")
@@ -33,4 +34,10 @@ health_component = NodePath("../HealthComponent")
 shape = SubResource("RectangleShape2D_w5t3o")
 
 [node name="WeaponComponent" parent="." instance=ExtResource("3_jj8qe")]
-scale = Vector2(6.245, 6.245)
+scale = Vector2(5.67, 5.67)
+knockback_force = 10.0
+stun_time = 0.4
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
