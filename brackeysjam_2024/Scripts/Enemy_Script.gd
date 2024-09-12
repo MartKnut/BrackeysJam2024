@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var stunTimer : Timer
+@export var Speed = 150
 
 var knockedBack := false
 var kbdirection := Vector2.ZERO
@@ -11,7 +12,20 @@ var canAct := true
 
 var kborigin : Vector2
 
+
+
+var target
+
+func _ready():
+	target = $"../PlayerScene"
+
+
 func _physics_process(delta: float) -> void:
+	
+	## Move towards target (player), placeholder for state machine
+	if canAct:
+		var direction = Vector2(target.position.x - position.x,  target.position.y - position.y).normalized()
+		move_and_collide((direction * Speed) * delta)
 	
 	velocity = kbdirection * kbforce
 	
