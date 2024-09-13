@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b6vyvs051ublr"]
+[gd_scene load_steps=27 format=3 uid="uid://cvfyqj688x4jd"]
 
 [ext_resource type="Script" path="res://Scripts/Tree_Script.gd" id="1_2obuu"]
 [ext_resource type="Texture2D" uid="uid://cpk5t7gdiuas6" path="res://Sprites/trees-Sheet.png" id="3_hbjj7"]

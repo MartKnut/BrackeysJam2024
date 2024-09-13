@@ -107,7 +107,7 @@ shape = SubResource("RectangleShape2D_1c8o5")
 
 [node name="WeaponComponent" parent="AttackRotation" instance=ExtResource("6_7vb1g")]
 position = Vector2(121, -58)
-scale = Vector2(2.23, 2.23)
+scale = Vector2(3.4, 3.4)
 knockback_force = 10.0
 attack_time = 0.2
 weapon_cooldown = 0.6

@@ -4,8 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://chtr0t8fx84tj" path="res://Scenes/Player_Scene.tscn" id="1_s314x"]
 [ext_resource type="Script" path="res://Scripts/TileMapDual.gd" id="2_2tys3"]
 [ext_resource type="PackedScene" uid="uid://c6xljblxn782l" path="res://Scenes/Enemy_Scene.tscn" id="2_yd3cl"]
-[ext_resource type="PackedScene" uid="uid://c843i1i1rupyt" path="res://Scenes/Tree.tscn" id="3_dvgq3"]
-[ext_resource type="PackedScene" uid="uid://b6vyvs051ublr" path="res://Scenes/Tree2.tscn" id="5_5gelk"]
+[ext_resource type="PackedScene" uid="uid://cvfyqj688x4jd" path="res://Scenes/Tree2.tscn" id="5_5gelk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5bmid"]
 texture = ExtResource("1_2fck1")
@@ -104,3 +103,13 @@ position = Vector2(854, 550)
 
 [node name="Tree3" parent="." instance=ExtResource("5_5gelk")]
 position = Vector2(748, 527)
+
+[node name="EnemyScene" parent="." instance=ExtResource("2_yd3cl")]
+z_index = 2
+position = Vector2(927, 343)
+scale = Vector2(0.35, 0.35)
+
+[node name="PlayerScene" parent="." instance=ExtResource("1_s314x")]
+z_index = 2
+position = Vector2(593, 346)
+scale = Vector2(0.35, 0.35)

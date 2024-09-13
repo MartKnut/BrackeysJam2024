@@ -36,7 +36,7 @@ shape = SubResource("RectangleShape2D_w5t3o")
 
 [node name="WeaponComponent" parent="." instance=ExtResource("3_jj8qe")]
 scale = Vector2(5.67, 5.67)
-knockback_force = 10.0
+knockback_force = 30.0
 stun_time = 0.4
 
 [node name="StunTimer" type="Timer" parent="."]
