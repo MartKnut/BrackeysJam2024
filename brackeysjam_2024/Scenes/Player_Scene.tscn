@@ -95,8 +95,9 @@ weapon_cooldown = NodePath("WeaponCooldown")
 attack_timer = NodePath("AttackTimer")
 stun_timer = NodePath("StunTimer")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_y84qr")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "knockback_component") instance=ExtResource("4_y84qr")]
 health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
 
 [node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_1c8o5")
@@ -108,7 +109,7 @@ shape = SubResource("RectangleShape2D_1c8o5")
 [node name="WeaponComponent" parent="AttackRotation" instance=ExtResource("6_7vb1g")]
 position = Vector2(121, -58)
 scale = Vector2(3.4, 3.4)
-knockback_force = 10.0
+knockback_force = 0.1
 attack_time = 0.2
 weapon_cooldown = 0.6
 

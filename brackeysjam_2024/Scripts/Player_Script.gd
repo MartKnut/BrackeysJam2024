@@ -63,20 +63,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	velocity = kbdirection * kbforce
-	
-	if knockedBack == true:
-		kbdirection = lerp(kbdirection, Vector2.ZERO, 0.1)
-		move_and_collide(velocity)
-		input = false
-	
 
-
-func KnockBack(force : float, direction : Vector2, stun_time : float):
-	knockedBack = true
-	kbforce = force
-	kbdirection = global_position - direction
-	stun_timer.wait_time = stun_time
-	stun_timer.start()
 
 func _attack():
 	## Stop other attacks from initiating

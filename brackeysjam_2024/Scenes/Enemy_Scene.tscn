@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6xljblxn782l"]
+[gd_scene load_steps=9 format=3 uid="uid://c6xljblxn782l"]
 
 [ext_resource type="PackedScene" uid="uid://7u6jmjx0ng1h" path="res://Scenes/Components/Hitbox_Component.tscn" id="1_4kvhp"]
 [ext_resource type="Script" path="res://Scripts/Enemy_Script.gd" id="1_rwe2s"]
 [ext_resource type="PackedScene" uid="uid://b3ud1loudlvxb" path="res://Scenes/Components/Health_Component.tscn" id="2_c4bcq"]
 [ext_resource type="PackedScene" uid="uid://cpj8avk5n4w30" path="res://Scenes/Components/Weapon_Component.tscn" id="3_jj8qe"]
+[ext_resource type="PackedScene" uid="uid://bpj33e1bvx32c" path="res://Scenes/Components/Knockback_Component.tscn" id="5_ycyt0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytlji"]
 size = Vector2(118, 116)
@@ -28,17 +29,20 @@ MAX_HEALTH = 20.0
 [node name="Icon" type="Sprite2D" parent="."]
 texture = SubResource("CompressedTexture2D_kay57")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_4kvhp")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "knockback_component") instance=ExtResource("1_4kvhp")]
 health_component = NodePath("../HealthComponent")
+knockback_component = NodePath("../KnockbackComponent")
 
 [node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_w5t3o")
 
 [node name="WeaponComponent" parent="." instance=ExtResource("3_jj8qe")]
 scale = Vector2(5.67, 5.67)
-knockback_force = 30.0
+knockback_force = 0.2
 stun_time = 0.4
 
 [node name="StunTimer" type="Timer" parent="."]
+
+[node name="KnockbackComponent" parent="." instance=ExtResource("5_ycyt0")]
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
